@@ -119,6 +119,12 @@ router.delete('/inventory/:restauranteId/:productId', (req, res) => {
   res.json({ mensaje: 'Producto eliminado', eliminado });
 });
 
+// GET: obtener lista de restaurantes para poder llevarlo al front
+router.get('/inventory', (req, res) => {
+  const restaurantes = Object.keys(inventario);
+  res.json(restaurantes);
+});
+
 
 module.exports = {
   router,
