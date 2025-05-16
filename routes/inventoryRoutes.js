@@ -107,11 +107,13 @@ router.get('/inventory/:restauranteId', (req, res) => {
   const restaurante = inventario[restauranteId];
   if (!restaurante) return res.status(404).json({ error: 'Restaurante no encontrado' });
 
-  let productos = Object.values(restaurante);
+  let productos = restaurante;
 
   if (typeof filtro === 'string' && filtro.trim() !== '') {
-    productos = productos.filter(p =>
-      p.name.toLowerCase().includes(filtro.toLowerCase())
+    productos = Object.fromEntries(
+      Object.entries(restaurante).filter(([_, p]) =>
+        p.name.toLowerCase().includes(filtro.toLowerCase())
+      )
     );
   }
 
